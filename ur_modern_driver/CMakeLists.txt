@@ -209,3 +209,5 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+#add_executable(test_gripper src/test_gripper.cpp)
+#target_link_libraries(test_gripper &{catkin_LIBRARIES})
