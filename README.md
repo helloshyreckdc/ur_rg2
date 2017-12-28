@@ -1,9 +1,10 @@
 # ur10_rg2_ros
+If an error occurs(ur_control.h No such file) when compiling, compile this package alone and then compare other packages. It seems there are some conflicts with universal robot pkg
 This repository provides codes for urdf, control and interface of On-Robot's RG2 gripper with ROS, MoveIt using UR10 manipulator.
 Link1: https://www.universal-robots.com/plus/product/rg2-gripper-22723/
 Link2: http://onrobot.com/products/
 
-- Author: Sharath Jotawar
+- Original Author: Sharath Jotawar   // I add several files for my own purpose
 - Email: sharathrjtr@gmail.com 
 - Video: https://www.youtube.com/watch?v=lCxMGvCKe_g
 
@@ -36,7 +37,7 @@ Connect the RG2 gripper with the UR manipulator. Now control opening width of Gr
 + $ rosrun ur_control rg2_server_node.py
 
 Control opening width in mm. Usual range 110 to 0 mm
-+ Open: $ rosservice call /rg2_gripper/control_width ur_control/RG2 110
++ Open: $ rosservice call /rg2_gripper/control_width ur_control/RG2 110  // if 110 does not work, use tab, this will provide right format of input
 + Close: $ rosservice call /rg2_gripper/control_width ur_control/RG2 0
 
 To check whether an object has been gripped or not
