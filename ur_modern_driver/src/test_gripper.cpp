@@ -40,42 +40,34 @@
 #include <tf/tf.h>
 #include <tf/transform_broadcaster.h>
 
-// store the target width
-float width = 0;
-// call gripper service or not
-bool change = false;
+float width = 0; // store the target width
+bool change = false; // call gripper service or not
 
 void gripperCallback(const std_msgs::Float64::ConstPtr& target_width)
 {
-// the gripper has something wrong, should compensate 1cm
-    if(width != target_width->data + 10)
+    if(width != target_width->data)
     {
-	width = target_width->data + 10; 
-	change = true;
+		width = target_width->data;
+		change = true;
     }
 }
 
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "gripper_control");
-//    if (argc != 3)
-//    {
-//        ROS_INFO("usage: add_two_ints_client X Y");
-//        return 1;
-//    }
 
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("gripper_width", 10, gripperCallback);
+    ros::Subscriber sub = n.subscribe("gripper_width", 10, gripperCallback); // subscribe a topic which sends target width
 
     ros::Rate rate(1.0);
-
+	
     while(ros::ok())
     {
-	if(change)
-	{
+		if(change)
+		{
             ros::ServiceClient client = n.serviceClient<ur_control::RG2>("rg2_gripper/control_width");
             ur_control::RG2 srv;
-            srv.request.target_width.data = width;
+            srv.request.target_width.data = width + 10; // this gripper program has something wrong, should compensate 1cm
             if (client.call(srv))
             {
                 ROS_INFO("Succeed!");
@@ -85,10 +77,10 @@ int main(int argc, char **argv)
                 ROS_ERROR("Failed to call service control_width");
                 return 1;
             }
-	    change = false;
-	}
-	ros::spinOnce();
-	rate.sleep();
+		    change = false;
+		}
+		ros::spinOnce();
+		rate.sleep();
 
     }
 
