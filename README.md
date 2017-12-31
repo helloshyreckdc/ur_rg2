@@ -1,5 +1,7 @@
 # ur10_rg2_ros
 If an error occurs(ur_control.h No such file) when compiling, compile this package alone and then compare other packages. It seems there are some conflicts with universal robot pkg
+Today I found when the error above occurs, I should open another terminal or source devel/setup.bash then the compiler can continue
+
 This repository provides codes for urdf, control and interface of On-Robot's RG2 gripper with ROS, MoveIt using UR10 manipulator.
 Link1: https://www.universal-robots.com/plus/product/rg2-gripper-22723/
 Link2: http://onrobot.com/products/
