@@ -70,6 +70,7 @@ int main(int argc, char **argv)
             srv.request.target_width.data = width + 10; // this gripper program has something wrong, should compensate 1cm
             if (client.call(srv))
             {
+		ros::param::set("finished_job", true);
                 ROS_INFO("Succeed!");
             }
             else
